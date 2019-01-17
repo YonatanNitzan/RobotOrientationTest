@@ -2,8 +2,6 @@ package org.usfirst.frc.team2212.odometry;
 
 import java.awt.geom.Point2D;
 
-import org.usfirst.frc.team2212.robot.Robot;;
-
 /**
  * a class which uses encoders to find the progress of a robot between discrete
  * times
