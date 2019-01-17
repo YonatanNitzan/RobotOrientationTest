@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Backward", new DriveTank(drivetrain, -0.3, -0.3));
 		SmartDashboard.putData("rotate", new DriveTank(drivetrain, 0.3, -0.3));
 		SmartDashboard.putData("joysticks", new DriveTank(drivetrain, OI::getLeft, OI::getRight));
+		SmartDashboard.putData("setter", new SetPosition(SetPosition.Position.DOWN_START_HIGH));
 		
 		leftEncoder.setDistancePerPulse(15.3 * Math.PI / 36000);
 		rightEncoder.setDistancePerPulse(15.3 * Math.PI / 36000);

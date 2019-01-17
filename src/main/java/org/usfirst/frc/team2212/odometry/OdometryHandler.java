@@ -19,13 +19,7 @@ public class OdometryHandler {
 	/**
 	 * creates a new {@link OdometryHandler} object, with given parameters
 	 * 
-	 * @param leftEncoderSupplier
-	 *            the value supplier from the left encoder
-	 * @param rightEncoderSupplier
-	 *            the value supplier from the right encoder
-	 * @param robotWidth
-	 *            the width of the relevant robot
-	 */
+	 * */
 	public OdometryHandler(OdometryUnit odometryUnit) {
 		this.odometryUnit = odometryUnit;
 
