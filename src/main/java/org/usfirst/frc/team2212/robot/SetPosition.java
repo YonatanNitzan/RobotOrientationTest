@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SetPosition extends Command {
     public static final double PI = Math.PI;
+    private Position position;
     public enum Position{
         UP_START_HIGH(265, 256, 0), UP_START_LOW(333, 256, 0),
         MIDDLE_START(333, 333, 0), DOWN_START_HIGH(265, 410, 0),
@@ -24,16 +25,17 @@ public class SetPosition extends Command {
         }
     }
     public SetPosition(Position position){
+        this.position = position;
+    }
+    @Override
+    protected void initialize(){
         Robot.leftEncoder.reset();
         Robot.rightEncoder.reset();
         Robot.IMU.reset();
         Robot.x = position.x;
         Robot.y = position.y;
         Robot.yaw = position.yaw;
-    }
-    @Override
-    protected void initialize(){
-        System.out.println("str");
+        System.out.println("output");
     }
     @Override
     protected boolean isFinished() {

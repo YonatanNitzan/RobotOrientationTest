@@ -65,10 +65,8 @@ public class OdometryHandler {
 
 		if (yawDifference == 0) {
 			// the robot moved in a straight line
-			System.out.println("straight");
 			centerDistance = Math.abs(rightDistance);
 		} else {
-			System.out.println("gay");
 			/*
 			 * calculating the rotation radius of the robot's movement.
 			 * Signified by r in the article. (equation 23).
@@ -98,7 +96,6 @@ public class OdometryHandler {
 		 * so gives us the robot's position in the navigation system (equation
 		 * 26)
 		 */
-		System.out.println("CenterDistance: " +  centerDistance + " arg:" + arg);
 		return MathUtils.convertPolarToCartesian(centerDistance, arg);
 	}
 }
