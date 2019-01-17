@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2212.robot;
 
-import com.spikes2212.utils.RunnableCommand;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetPosition extends Command {
