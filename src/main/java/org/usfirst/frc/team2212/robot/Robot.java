@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
 		// folLeft = new EncoderFollower(left);
 		// folRight = new EncoderFollower(right);
 		// folLeft.configurePIDVA(kp, ki, kd, kv, ka);
-		// folRight.confaigurePIDVA(kp, ki, kd, kv, ka);
+		// folRight.configurePIDVA(kp, ki, kd, kv, ka);
 
 
 		SmartDashboard.putData("Forward", new DriveTank(drivetrain, 0.3, 0.3));
