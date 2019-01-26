@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
 	public static OdometryHandler handler;
 	public static OdometryUnit unit;
 
-	public static double x = 2.9, y = 2.212;
+	public static double x = 2.9, y = 2.212, yaw = 45;
 	public static Point2D point = new Point2D.Double(0, 0);
 
 	/**
@@ -90,16 +90,14 @@ public class Robot extends TimedRobot {
 		// dbc.addDouble("left output", () -> (leftCalculate));
 		// dbc.addDouble("right output", () -> (rightCalculate));
 
-		unit = new OdometryUnit(leftEncoder::getDistance, rightEncoder::getDistance, ROBOT_WIDTH, () -> -IMU.getAngleY());
+		unit = new OdometryUnit(leftEncoder::getDistance, rightEncoder::getDistance, ROBOT_WIDTH, () -> yaw-IMU.getAngleY());
 		handler = new OdometryHandler(unit);
 
 		dbc.addNumber("Robot x", () -> (x));
 		dbc.addNumber("Robot y", () -> (y));
-		dbc.addNumber("Robot angle", () -> odometryHandler.getYawConst() + IMU.getAngleY());
+		dbc.addNumber("Robot angle", () -> IMU.getAngleY());
 		dbc.addNumber("x: odometry displacement", point::getX);
 		dbc.addNumber("y: odometry displacement", point::getY);
-		
-
 	}
 
 	@Override

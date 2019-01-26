@@ -36,6 +36,6 @@ public class SetPosition extends InstantCommand {
         Robot.IMU.reset();
         Robot.x = position.x/100;
         Robot.y = position.y/100;
-        robot.odometryHandler.setYawConst(position.yaw);
+        robot.yaw = Math.toDegrees(position.yaw);
     }
 }

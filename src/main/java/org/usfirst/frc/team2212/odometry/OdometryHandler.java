@@ -13,7 +13,6 @@ public class OdometryHandler {
 
 	private OdometryUnit odometryUnit;
 	private RelativeDataSupplier yawDiff;
-	private double yawConst = 0;
 
 	/**
 	 * creates a new {@link OdometryHandler} object, with given parameters
@@ -38,7 +37,7 @@ public class OdometryHandler {
 	 */
 	public Point2D getDifference() {
 		// getting the yaw angle of the robot in the end of the movement
-		double yaw = Math.toRadians(odometryUnit.getYaw() + yawConst);
+		double yaw = Math.toRadians(odometryUnit.getYaw());
 		/*
 		 * The robot's displacement's norm, i.e the length of the straight line
 		 * starting from the previous center location of the robot and ending in
@@ -98,11 +97,5 @@ public class OdometryHandler {
 		 * 26)
 		 */
 		return MathUtils.convertPolarToCartesian(centerDistance, arg);
-	}
-	public double getYawConst(){
-		return yawConst;
-	}
-	pubilc void setYawConst(double angle){
-		yawConst = angle;
 	}
 }
