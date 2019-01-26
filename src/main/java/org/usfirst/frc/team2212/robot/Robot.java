@@ -91,9 +91,9 @@ public class Robot extends TimedRobot {
 		unit = new OdometryUnit(leftEncoder::getDistance, rightEncoder::getDistance, ROBOT_WIDTH, IMU::getAngleY);
 		handler = new OdometryHandler(unit);
 
-		dbc.addNumber("x: odometry", () -> (x));
-		dbc.addNumber("y: odometry", () -> (y));
-		dbc.addNumber("yaw", IMU::getAngleY);
+		dbc.addNumber("Robot x", () -> (x));
+		dbc.addNumber("Robot y", () -> (y));
+		dbc.addNumber("Robot angle", IMU::getAngleY);
 		dbc.addNumber("x: odometry displacement", point::getX);
 		dbc.addNumber("y: odometry displacement", point::getY);
 		
