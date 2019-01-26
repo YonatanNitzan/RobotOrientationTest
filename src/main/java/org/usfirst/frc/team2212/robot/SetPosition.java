@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 public class SetPosition extends InstantCommand {
     public static final double PI = Math.PI;
     private Position position;
-    private double yawAddition = 0;
     
     public enum Position{
         UP_START_HIGH(265, 256, 0), UP_START_LOW(333, 256, 0),
@@ -36,6 +35,6 @@ public class SetPosition extends InstantCommand {
         Robot.IMU.reset();
         Robot.x = position.x/100;
         Robot.y = position.y/100;
-        robot.yaw = Math.toDegrees(position.yaw);
+        Robot.yaw = Math.toDegrees(position.yaw);
     }
 }
