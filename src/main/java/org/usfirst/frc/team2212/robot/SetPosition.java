@@ -1,10 +1,12 @@
 package org.usfirst.frc.team2212.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class SetPosition extends Command {
+public class SetPosition extends InstantCommand {
     public static final double PI = Math.PI;
     private Position position;
+    private double yawAddition = 0;
+    
     public enum Position{
         UP_START_HIGH(265, 256, 0), UP_START_LOW(333, 256, 0),
         MIDDLE_START(333, 333, 0), DOWN_START_HIGH(265, 410, 0),
@@ -16,9 +18,9 @@ public class SetPosition extends Command {
         //UP_ROCKET_RIGHT(), UP_ROCKET_MIDDLE(),
         //UP_ROCKET_LEFT(), DOWN_ROCKET_RIGHT(),
         /*DOWN_ROCKET_MIDDLE(), DOWN_ROCKET_LEFT() */;
-        int x, y;
+        double x, y;
         double yaw;
-        Position(int x, int y, double yaw){
+        Position(double x, double y, double yaw){
             this.x = x;
             this.y = y;
             this.yaw = yaw;
@@ -32,13 +34,8 @@ public class SetPosition extends Command {
         Robot.leftEncoder.reset();
         Robot.rightEncoder.reset();
         Robot.IMU.reset();
-        Robot.x = position.x;
-        Robot.y = position.y;
-        Robot.yaw = position.yaw;
-        System.out.println("output");
-    }
-    @Override
-    protected boolean isFinished() {
-        return true;
+        Robot.x = position.x/100;
+        Robot.y = position.y/100;
+        robot.odometryHandler.setYawConst(position.yaw);
     }
 }

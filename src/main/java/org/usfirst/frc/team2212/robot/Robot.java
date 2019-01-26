@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
 	public static OdometryHandler handler;
 	public static OdometryUnit unit;
 
-	public static double x = 0,y = 0,yaw = 0;
+	public static double x = 2.9, y = 2.212;
 	public static Point2D point = new Point2D.Double(0, 0);
 
 	/**
@@ -79,6 +79,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("rotate", new DriveTank(drivetrain, 0.3, -0.3));
 		SmartDashboard.putData("joysticks", new DriveTank(drivetrain, OI::getLeft, OI::getRight));
 		SmartDashboard.putData("setter", new SetPosition(SetPosition.Position.DOWN_START_HIGH));
+		SmartDashboard.putData("setter2", new SetPosition(SetPosition.Position.DOWN_START_LOW));
+		SmartDashboard.putData("setter3", new SetPosition(SetPosition.Position.TEAM_THREE_CARGO_SHIP_LOW));
 		
 		leftEncoder.setDistancePerPulse(15.3 * Math.PI / 36000);
 		rightEncoder.setDistancePerPulse(15.3 * Math.PI / 36000);
@@ -88,15 +90,16 @@ public class Robot extends TimedRobot {
 		// dbc.addDouble("left output", () -> (leftCalculate));
 		// dbc.addDouble("right output", () -> (rightCalculate));
 
-		unit = new OdometryUnit(leftEncoder::getDistance, rightEncoder::getDistance, ROBOT_WIDTH, IMU::getAngleY);
+		unit = new OdometryUnit(leftEncoder::getDistance, rightEncoder::getDistance, ROBOT_WIDTH, () -> -IMU.getAngleY());
 		handler = new OdometryHandler(unit);
 
 		dbc.addNumber("Robot x", () -> (x));
 		dbc.addNumber("Robot y", () -> (y));
-		dbc.addNumber("Robot angle", IMU::getAngleY);
+		dbc.addNumber("Robot angle", () -> odometryHandler.getYawConst() + IMU.getAngleY());
 		dbc.addNumber("x: odometry displacement", point::getX);
 		dbc.addNumber("y: odometry displacement", point::getY);
 		
+
 	}
 
 	@Override
@@ -126,32 +129,10 @@ public class Robot extends TimedRobot {
 		
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
-	 */
 	@Override
 	public void autonomousInit() {
 		leftEncoder.reset();
 		rightEncoder.reset();
-		// folLeft.reset();
-		// folRight.reset();
-		// folLeft.configureEncoder(leftEncoder.get(), TICKS_PER_REVOLUTION, WHEEL_DIAMETER);
-		// folRight.configureEncoder(leftEncoder.get(), TICKS_PER_REVOLUTION, WHEEL_DIAMETER);
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-		// schedule the autonomous command (example)
 		}
 
 	/**
@@ -161,20 +142,12 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		dbc.update();
-		// leftCalculate = folLeft.calculate(leftEncoder.get());
-		// rightCalculate = folRight.calculate(rightEncoder.get());
-		// drivetrain.tankDrive(leftCalculate, rightCalculate);
 	}
 
 	@Override
 	public void teleopInit() {
 			leftEncoder.reset();
 			rightEncoder.reset();
-			IMU.reset();
-			x=y=0;
-			dbc.update();
-			// folLeft.configureEncoder(leftEncoder.get(), TICKS_PER_REVOLUTION, WHEEL_DIAMETER);
-			// folRight.configureEncoder(leftEncoder.get(), TICKS_PER_REVOLUTION, WHEEL_DIAMETER);
 		}
 
 	/**
